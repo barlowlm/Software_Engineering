@@ -54,6 +54,26 @@ t = lca(root, n1, n2)
 print "LCA of %d and %d is %d" %(n1, n2, t.data) 
   
 # This code is contributed by Nikhil Kumar Singh(nickzuck_007) 
+def findLCA(graph,root, x, y, path):
+
+    if(root is None or x is None or y is None):
+        return None
+
+    g1 = graph
+    g2 = graph
+
+    pathTox = find_all_paths(g1,root, x)
+    pathToy = find_all_paths(g2, root, y)
+
+    xPlain = list(set([item for sublist in pathTox for item in sublist]))  
+    lca = (None, -1)
+
+    for i in xPlain:
+        for j in pathToy:
+            if (i in j) and j.index(i) > lca[1]:
+                lca = (i, j.index(i))
+
+    return lca[0]
 
 graph = {'A': ['B', 'C'],
              'B': ['C', 'D'],
@@ -63,6 +83,9 @@ graph = {'A': ['B', 'C'],
              'F': ['C']}
 
 def find_all_paths(graph, start, end, path=[]):
+    #if None in graph or None in start or None in end:
+     #   return None
+
     path = path + [start]
     if start == end:
         return [path]
@@ -97,11 +120,11 @@ def find_shortest_path(graph, start, end, path=[]):
 def bfs(graph, start):
     visited, queue = set(), [start]
     while queue:
-    vertex = queue.pop(0)
+        vertex = queue.pop(0)
     if vertex not in visited:
         visited.add(vertex)
         queue.extend(graph[vertex] - visited)
-return visited
+    return visited
 
 # bfs
 def bfs_paths(graph, start, goal):
@@ -114,6 +137,7 @@ def bfs_paths(graph, start, goal):
             else:
                 queue.append((next, path + [next]))
 
+
 def shortest_path(graph, start, goal):
     try:
         return next(bfs_paths(graph, start, goal))
@@ -122,7 +146,6 @@ def shortest_path(graph, start, goal):
    
 
 
-# find path graph
-print(find_all_paths(graph, 'A', 'D')) 
-print(find_shortest_path(graph, 'A', 'D'))
+#find path graph
+print(find_all_paths(graph, 'A', 'D'))
 
