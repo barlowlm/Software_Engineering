@@ -1,7 +1,7 @@
 from github import Github
 
 # using username and password
-#g = Github("barlowlm", "password")
+#g = Github("barlowlm", "Spassword")
 
 # or using an access token
 g = Github("d1045bd2897fb8b960e5617dde1c9f78ff2708f5")
@@ -11,6 +11,9 @@ g = Github("d1045bd2897fb8b960e5617dde1c9f78ff2708f5")
 
 for repo in g.get_user().get_repos():
     print(repo.name)
-    repo.edit(has_wiki=False)
+
+for repo in g.get_user().get_repos():
+    print(repo.name)
+    #repo.edit(has_wiki=False)
     # to see all the available attributes and methods
     print(dir(repo))
