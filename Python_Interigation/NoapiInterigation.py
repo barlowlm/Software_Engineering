@@ -1,3 +1,4 @@
+#! /usr/bin/env python2
 import json
 import requests
 
@@ -38,11 +39,3 @@ def find_next(link):
         if b.strip() == 'rel="next"':
             return a.strip()[1:-1]
 
-
-if __name__ == '__main__':
-    
-    total = 0
-    for repo in count_user_commits("barlowlm"):
-        print ("Repo `%(name)s` has %(num_commits)d commits, size %(size)d." % repo)
-        total += repo['num_commits']
-    print ("Total commits: %d" % total)
