@@ -7,6 +7,9 @@ import io
 import d3py
 import pandas
 import numpy as np
+import networkx as nx
+import logging
+
 #import d3.v4.js
 
 #writing a jason file
@@ -79,17 +82,49 @@ with open('commits.csv', mode='w') as csv_file:
 
 
 # some test data
-T = 100
+#T = 100
 # this is a data frame with three columns (we only use 2)
-df = pandas.DataFrame({
-    "time" : range(T),
-    "pressure": np.random.rand(T),
-    "temp" : np.random.rand(T)
-})
+#df = pandas.DataFrame({
+ #   "time" : range(T),
+  #  "pressure": np.random.rand(T),
+  #  "temp" : np.random.rand(T)
+#})
 ## build up a figure, ggplot2 style
 # instantiate the figure object
-fig = d3py.PandasFigure(df, name="basic_example", width=300, height=300) 
+#fig = d3py.PandasFigure(df, name="basic_example", width=300, height=300) 
 # add some red points
-fig += d3py.geoms.Point(x="pressure", y="temp", fill="red")
+#fig += d3py.geoms.Point(x="pressure", y="temp", fill="red")
 # writes 3 files, starts up a server, then draws some beautiful points in Chrome
-fig.show() 
+
+
+
+##graph
+#logging.basicConfig(level=logging.DEBUG)
+
+#G=nx.Graph()
+#G.add_edge(1,2)
+#G.add_edge(7,3)
+#G.add_edge(17,2)
+#G.add_edge(35,4)
+#G.add_edge(48,2)
+
+#use 'with' if you are writing a script and want to serve this up forever
+#with d3py.NetworkXFigure(G, width=500, height=500) as p:
+#   p += d3py.ForceLayout()
+#   p.show()
+
+
+## scatter plot
+
+n = 400
+
+df = pandas.DataFrame({
+   'd1': np.arange(0,n),
+   'd2': np.random.normal(0, 1, n)
+})
+
+with d3py.PandasFigure(df, "example scatter plot using d3py", width=400, height=400) as fig:
+    fig += d3py.Point("d1", "d2", fill="DodgerBlue")
+    fig += d3py.xAxis('d1', label="Random")
+    fig += d3py.yAxis('d2', label="Also random")
+    fig.show()
